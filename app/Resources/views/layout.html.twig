@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block nav %}
+    <div id="modules" class="two">
+        <ul>
+            <li onclick="location.href = '{{ path('bm_desktop_index') }}'">{{ 'bm.modules.desktop' | trans }}</li>
+            <li class="module" id="push-subscriptions" {#onclick="location.href = '{{ path('bm_pushsubscription_index') }}'"#}>{{ 'bm.modules.push_subscriptions' | trans }}</li>
+            <div id="submodules-push-subscriptions" class="submodules-container">
+                <li class="submodule" onclick="location.href = '{{ path('bm_pushsubscription_settings') }}'">{{ 'bm.global.settings' | trans }}</li>
+                <li class="submodule" onclick="location.href = '{{ path('bm_pushmessage_send') }}'">{{ 'bm.push_message.send' | trans }}</li>
+            </div>
+            <li>Subskrypcje</li>
+        </ul>
+    </div>
+{% endblock %}

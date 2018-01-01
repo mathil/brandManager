@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+}
+
+#modules {
+    height: 89%;
+    box-sizing: border-box;
+    width: 10%;
+    float: left;
+    background-color: #ffdd66;
+    text-transform: uppercase;
+}
+
+#modules ul {
+    margin-top: 10px;
+    margin-left: 10px;
+    list-style-type: none;
+}
+
+#modules ul > li {
+    cursor: pointer;
+}
+
+#modules ul > li:hover {
+    color: white;
+}
+
+#modules a {
+    color: black;
+    text-decoration: none;
+
+}
+
+.submodules-container {
+    display: none;
+    font-size: 12px;
+}
+
+.submodule {
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.submodule:hover {
+    color: white;
+}
+
+#top-menu {
+    box-sizing: border-box;
+    float: right;
+    width: 89%;
+    padding: 10px 10px 10px 10px;
+    background-color: #ffdd66;
+}
+
+#content {
+    min-height: 80%;
+    box-sizing: border-box;
+    width: 89%;
+    float: right;
+    padding: 5px 5px 5px 5px;
+}
+
+#main-content {
+    border: 1px solid black;
+}

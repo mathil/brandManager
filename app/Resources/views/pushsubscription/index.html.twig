@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h4>{{ 'bm.push_subscriptions.list' | trans }}</h4>
+    
+    <a class="button" href="{{ path('bm_pushmessage_send') }}">{{ 'bm.push_message.send' | trans }}</a>
+
+    <table class="table-list datatables">
+        <thead>
+            <tr>
+                <th>{{ 'bm.push_subscriptions.properties.endpoint' | trans }}</th>
+                <th>{{ 'bm.push_subscriptions.properties.p256dh' | trans }}</th>
+                <th>{{ 'bm.push_subscriptions.properties.auth' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pushSubscription in pushSubscriptions %}
+                <tr>
+                    <td style="word-break: break-all;">{{ pushSubscription.endpoint }}</td>
+                    <td style="word-break: break-all;">{{ pushSubscription.p256dh }}</td>
+                    <td style="word-break: break-all;">{{ pushSubscription.auth }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

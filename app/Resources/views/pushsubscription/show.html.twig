@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pushsubscription</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pushSubscription.id }}</td>
+            </tr>
+            <tr>
+                <th>Endpoint</th>
+                <td>{{ pushSubscription.endpoint }}</td>
+            </tr>
+            <tr>
+                <th>P256dh</th>
+                <td>{{ pushSubscription.p256dh }}</td>
+            </tr>
+            <tr>
+                <th>Auth</th>
+                <td>{{ pushSubscription.auth }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pushsubscription_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

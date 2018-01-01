@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Brand Manager{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/skeleton.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/css/main.css') }}" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+ 
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block nav %}{% endblock %}
+        <div id="top-menu">
+            <h4 id="app-title">BrandManager</h4>
+            
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div id="logger-user" style="text-align: right;">
+                <a id="logger-user" href="{{ path('fos_user_profile_show') }}">{{ app.user.fullName }}</a>
+                |
+                <a id="logger-user" href="{{ path('fos_user_security_logout') }}">{{ 'bm.global.logout' | trans }}</a>
+                </div>
+            {% endif %}
+            
+        </div>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+        <script src="{{ asset('public/js/main.js') }}"></script>
+        <script src="{{ asset('public/js/datatables.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

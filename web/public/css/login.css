@@ -1,0 +1,17 @@
+#login-form-container {
+    margin: auto;
+    margin-top: 200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+#login-form-container input:not([type=checkbox]) {
+    width: 100%;
+}
+
+#login-form-container label {
+    display: inline-block;
+}

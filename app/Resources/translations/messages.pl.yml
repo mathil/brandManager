@@ -1,0 +1,33 @@
+bm:
+    modules:
+        desktop: Pulpit
+        push_subscriptions: Powiadomienia PUSH
+    push_subscriptions:
+        submodules:
+            settings: Ustawienia powiadomień push
+        list: Powiadomienia Push
+        properties:
+            endpoint: Endpoint
+            p256dh: p256dh
+            auth: Auth
+        private_key: Klucz prywatny
+        public_key: Klucz publiczny
+        settings:
+            configuration: Konfiguracja
+    push_message:
+        send: Wyślij powiadomienie PUSH
+        properties:
+            subject: Temat
+            content: Treść powiadomienia
+            open_url_after_click: Otwórz adres URL po kliknięciu
+            url: Adres URL
+            actions:
+                open_url: Otwórz adres URL
+                close: Zamknij
+    global:
+        submit: Wyślij
+        send: Wyślij
+        create: Stwórz
+        save: Zapisz
+        settings: Ustawienia
+        logout: Wyloguj

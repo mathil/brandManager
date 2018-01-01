@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <label>{{ 'bm.push_subscriptions.private_key' | trans }}</label>
+    <input type="text" disabled="disabled" value="{{ privateApiKey }}">
+    <label>{{ 'bm.push_subscriptions.public_key' | trans }}</label>
+    <input type="text" disabled="disabled" value="{{ publicApiKey }}">
+
+
+{% endblock %}
