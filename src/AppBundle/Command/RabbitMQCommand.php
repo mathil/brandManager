@@ -9,6 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
+/**
+ * Class RabbitMQCommand
+ * @package AppBundle\Command
+ */
 class RabbitMQCommand extends ContainerAwareCommand {
 
     protected function configure() {
