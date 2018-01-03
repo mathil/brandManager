@@ -8,7 +8,7 @@ use AppBundle\Entity\PushSubscription;
 
 class NewPushSubscriptionListener {
 
-    public function prePersist(LifecycleEventArgs $args) {
+    public function postPersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
 
         if(!$entity instanceof PushSubscription) {
@@ -20,7 +20,8 @@ class NewPushSubscriptionListener {
     }
 
     private function writeToLog() {
-        $msg = "Dodano nową subskrypcję" . PHP_EOL;
+        $msg = "[" . (new \DateTime())->format('d.m.Y H:i:s') . "] Dodano nową subskrypcję";
+
         $filename = __DIR__ . "/../../../var/logs/subscriptions.log";
         file_put_contents($filename, $msg, FILE_APPEND);
     }
