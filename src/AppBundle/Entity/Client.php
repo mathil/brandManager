@@ -39,7 +39,7 @@ class Client {
     private $pushSubscriptions;
 
     /**
-     * @ORM\OneToOne(targetEntity="PushSubscriptionSettings")
+     * @ORM\OneToOne(targetEntity="PushSubscriptionSettings", inversedBy="client")
      * @ORM\JoinColumn(name="push_subscription_settings_id", referencedColumnName="id")
      */
     private $pushSubscriptionSettings;

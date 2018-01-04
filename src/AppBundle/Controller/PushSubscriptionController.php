@@ -17,7 +17,7 @@ class PushSubscriptionController extends Controller {
     /**
      * Lists all pushSubscription entities.
      *
-     * @Route("/", name="bm_pushsubscription_index")
+     * @Route("/list", name="bm_pushsubscription_index")
      * @Method("GET")
      */
     public function indexAction() {

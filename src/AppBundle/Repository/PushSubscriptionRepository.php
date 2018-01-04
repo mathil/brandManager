@@ -18,4 +18,16 @@ class PushSubscriptionRepository extends \Doctrine\ORM\EntityRepository {
         }
     }
 
+    public function getPushSubscriptionsOlderThan($dateTime) {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.ctime < :date')
+            ->setParameter('date', $dateTime)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
 }

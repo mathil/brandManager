@@ -2,15 +2,17 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\BaseEntity;
 use Doctrine\ORM\Mapping as ORM;
+
+
 
 /**
  * PushSubscription
- *
  * @ORM\Table(name="push_subscription")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PushSubscriptionRepository")
  */
-class PushSubscription {
+class PushSubscription extends BaseEntity {
 
     /**
      * @var int
