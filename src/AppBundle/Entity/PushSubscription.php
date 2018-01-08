@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * PushSubscription
  * @ORM\Table(name="push_subscription")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PushSubscriptionRepository")
  */
@@ -139,7 +138,7 @@ class PushSubscription extends BaseEntity {
      *
      * @return PushSubscription
      */
-    public function setClient(\AppBundle\Entity\Client $client = null) {
+    public function setClient(Client $client = null) {
         $this->client = $client;
 
         return $this;

@@ -13,9 +13,9 @@ class PushNotificationSender
     {
     }
 
-    public function send(string $privateKey, string $publicKey, array $dataToSend, Collection $pushSubscriptions)
+    public function send(string $privateKey, string $publicKey, array $dataToSend, Collection $pushSubscriptions): array
     {
-        $dataToSend = json_encode($dataToSend);
+        $dataToSendAsJSON = json_encode($dataToSend);
         $webPush = new WebPush([
             'VAPID' => [
                 'subject' => 'mailto:panhilson@gmail.com',
@@ -24,13 +24,22 @@ class PushNotificationSender
             ]
         ]);
 
-        $results = array();
+        $results = [
+            'success' => 0,
+            'fail' => 0
+        ];
         foreach ($pushSubscriptions as $sub) {
-            $results[] = $webPush->sendNotification($sub->getEndpoint(), $dataToSend, $sub->getP256dh(), $sub->getAuth());
+            if (true === $webPush->sendNotification($sub->getEndpoint(), $dataToSendAsJSON, $sub->getP256dh(), $sub->getAuth())) {
+                ++$results['success'];
+            } else {
+                ++$results['fail'];
+            }
         }
         $webPush->flush();
         return $results;
     }
+
+
 
 
 }

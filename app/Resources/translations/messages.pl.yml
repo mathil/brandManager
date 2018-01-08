@@ -16,11 +16,16 @@ bm:
             configuration: Konfiguracja
     push_message:
         send: Wyślij powiadomienie PUSH
+        history: Historia powiadomień
         properties:
             subject: Temat
-            content: Treść powiadomienia
+            message: Treść
             open_url_after_click: Otwórz adres URL po kliknięciu
             url: Adres URL
+            action: Akcja
+            received_success_count: Powodzenie
+            received_fail_count: Niepowodzenie
+            sent_date: Data wysłania
             actions:
                 open_url: Otwórz adres URL
                 close: Zamknij

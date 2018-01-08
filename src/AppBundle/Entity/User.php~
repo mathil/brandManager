@@ -43,6 +43,11 @@ class User extends BaseUser {
     private $client;
 
     /**
+     * @ORM\OneToMany(targetEntity="PushMessageHistory", mappedBy="sender")
+     */
+    private $sentPushMessages;
+
+    /**
      * Get id
      *
      * @return int

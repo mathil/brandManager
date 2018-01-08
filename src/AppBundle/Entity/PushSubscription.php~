@@ -2,15 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\BaseEntity;
 use Doctrine\ORM\Mapping as ORM;
 
+
+
 /**
- * PushSubscription
- *
  * @ORM\Table(name="push_subscription")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PushSubscriptionRepository")
  */
-class PushSubscription {
+class PushSubscription extends BaseEntity {
 
     /**
      * @var int
@@ -47,6 +48,13 @@ class PushSubscription {
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
     private $client;
+
+    public function __construct($endpoint, $p256dh, $auth, $client) {
+        $this->endpoint = $endpoint;
+        $this->p256dh = $p256dh;
+        $this->auth = $auth;
+        $this->client = $client;
+    }
 
     /**
      * Get id
@@ -121,6 +129,28 @@ class PushSubscription {
      */
     public function getAuth() {
         return $this->auth;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \AppBundle\Entity\Client $client
+     *
+     * @return PushSubscription
+     */
+    public function setClient(Client $client = null) {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \AppBundle\Entity\Client
+     */
+    public function getClient() {
+        return $this->client;
     }
 
 }

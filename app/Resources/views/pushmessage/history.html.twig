@@ -1,0 +1,31 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h4>{{ 'bm.push_message.history' | trans }}</h4>
+
+    <table class="datatables">
+        <thead>
+            <tr>
+                <th>{{ 'bm.push_message.properties.sent_date' | trans }}</th>
+                <th>{{ 'bm.push_message.properties.subject' | trans }}</th>
+                <th>{{ 'bm.push_message.properties.message' | trans }}</th>
+                <th>{{ 'bm.push_message.properties.action' | trans }}</th>
+                <th>{{ 'bm.push_message.properties.received_success_count' | trans }}</th>
+                <th>{{ 'bm.push_message.properties.received_fail_count' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for elem in history %}
+            <tr>
+                <td>{{ elem.sentDate | date('Y.m.d H:i:s') }}</td>
+                <td>{{ elem.subject }}</td>
+                <td>{{ elem.message }}</td>
+                <td>{{ ('bm.push_message.properties.actions.' ~ elem.action) | trans }}</td>
+                <td>{{ elem.receivedSuccessCount }}</td>
+                <td>{{ elem.receivedFailCount }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

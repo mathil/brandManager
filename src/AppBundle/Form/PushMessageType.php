@@ -21,13 +21,15 @@ class PushMessageType extends AbstractType {
             ->add('subject', TextType::class, [
                 'label' => 'bm.push_message.properties.subject',
                 'attr' => [
-                    'style' => 'width: 500px;'
+                    'style' => 'width: 500px;',
+                    'maxlength' => 100
                 ]
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'bm.push_message.properties.content',
+                'label' => 'bm.push_message.properties.message',
                 'attr' => [
-                    'style' => 'resize: none; width: 500px; height: 200px;'
+                    'style' => 'resize: none; width: 500px; height: 200px;',
+                    'maxlength' => 255
                 ]
             ])
             ->add('openUrl', CheckboxType::class, [

@@ -43,6 +43,11 @@ class User extends BaseUser {
     private $client;
 
     /**
+     * @ORM\OneToMany(targetEntity="PushMessageHistory", mappedBy="sender")
+     */
+    private $sentPushMessages;
+
+    /**
      * Get id
      *
      * @return int
@@ -121,4 +126,40 @@ class User extends BaseUser {
         return $this->name . " " . $this->surname;
     }
 
+
+    /**
+     * Add sentPushMessage.
+     *
+     * @param \AppBundle\Entity\PushMessageHistory $sentPushMessage
+     *
+     * @return User
+     */
+    public function addSentPushMessage(\AppBundle\Entity\PushMessageHistory $sentPushMessage)
+    {
+        $this->sentPushMessages[] = $sentPushMessage;
+
+        return $this;
+    }
+
+    /**
+     * Remove sentPushMessage.
+     *
+     * @param \AppBundle\Entity\PushMessageHistory $sentPushMessage
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeSentPushMessage(\AppBundle\Entity\PushMessageHistory $sentPushMessage)
+    {
+        return $this->sentPushMessages->removeElement($sentPushMessage);
+    }
+
+    /**
+     * Get sentPushMessages.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSentPushMessages()
+    {
+        return $this->sentPushMessages;
+    }
 }

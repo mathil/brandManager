@@ -39,17 +39,7 @@ class Client {
     private $pushSubscriptions;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $pushSubscriptionPrivateKey;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $pushSubscriptionPublicKey;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="PushSubscriptionSettings")
+     * @ORM\OneToOne(targetEntity="PushSubscriptionSettings", inversedBy="client")
      * @ORM\JoinColumn(name="push_subscription_settings_id", referencedColumnName="id")
      */
     private $pushSubscriptionSettings;
@@ -154,52 +144,32 @@ class Client {
         return $this->pushSubscriptions;
     }
 
-
     /**
-     * Set pushSubscriptionPrivateKey
+     * Set pushSubscriptionSettings
      *
-     * @param string $pushSubscriptionPrivateKey
+     * @param \AppBundle\Entity\PushSubscriptionSettings $pushSubscriptionSettings
      *
      * @return Client
      */
-    public function setPushSubscriptionPrivateKey($pushSubscriptionPrivateKey)
-    {
-        $this->pushSubscriptionPrivateKey = $pushSubscriptionPrivateKey;
+    public function setPushSubscriptionSettings(\AppBundle\Entity\PushSubscriptionSettings $pushSubscriptionSettings = null) {
+        $this->pushSubscriptionSettings = $pushSubscriptionSettings;
 
         return $this;
     }
 
     /**
-     * Get pushSubscriptionPrivateKey
+     * Get pushSubscriptionSettings
      *
-     * @return string
+     * @return \AppBundle\Entity\PushSubscriptionSettings
      */
-    public function getPushSubscriptionPrivateKey()
-    {
-        return $this->pushSubscriptionPrivateKey;
+    public function getPushSubscriptionSettings() {
+        return $this->pushSubscriptionSettings;
     }
 
-    /**
-     * Set pushSubscriptionPublicKey
-     *
-     * @param string $pushSubscriptionPublicKey
-     *
-     * @return Client
-     */
-    public function setPushSubscriptionPublicKey($pushSubscriptionPublicKey)
-    {
-        $this->pushSubscriptionPublicKey = $pushSubscriptionPublicKey;
-
-        return $this;
+    public function isPushSubscriptionSettingsConfigured() {
+        return $this->pushSubscriptionSettings !== null
+            && $this->pushSubscriptionSettings->getPrivateKey() !== null
+            && $this->pushSubscriptionSettings->getPublicKey() !== null;
     }
 
-    /**
-     * Get pushSubscriptionPublicKey
-     *
-     * @return string
-     */
-    public function getPushSubscriptionPublicKey()
-    {
-        return $this->pushSubscriptionPublicKey;
-    }
 }
