@@ -4,6 +4,7 @@ function initModules() {
         $(this).on('click', function () {
             console.log($(this));
             $("#submodules-" + module).toggle(200);
+            $("#submodules-" + module).addClass('current-module')
         });
     });
 }

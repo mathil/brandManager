@@ -2,6 +2,7 @@ bm:
     modules:
         desktop: Pulpit
         push_subscriptions: Powiadomienia PUSH
+        users: Użytkownicy
     push_subscriptions:
         submodules:
             settings: Ustawienia powiadomień push
@@ -36,3 +37,4 @@ bm:
         save: Zapisz
         settings: Ustawienia
         logout: Wyloguj
+        list: Lista

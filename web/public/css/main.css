@@ -45,6 +45,14 @@ html, body {
     color: white;
 }
 
+.current-module {
+    display: block !important;
+}
+
+.current-submodule {
+    font-weight: bold;
+}
+
 #top-menu {
     box-sizing: border-box;
     float: right;
@@ -63,4 +71,8 @@ html, body {
 
 #main-content {
     border: 1px solid black;
+}
+
+.empty-block {
+    height: 20px;
 }

@@ -19,16 +19,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @package AppBundle\Controller
  * @Route("pushsubscription/settings")
  */
-class PushSubscriptionSettingsController extends Controller {
+class PushSubscriptionSettingsController extends Controller
+{
 
     /**
      * @Route("/", name="bm_pushsubscription_settings")
+     * @Method("GET")
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         return $this->render('pushsubscription\settings\index.html.twig', [
             'privateApiKey' => $this->getUser()->getClient()->getPushSubscriptionSettings()->getPrivateKey(),
             'publicApiKey' => $this->getUser()->getClient()->getPushSubscriptionSettings()->getPublicKey()
         ]);
+    }
+
+    public function uploadImageAction()
+    {
+
     }
 
 

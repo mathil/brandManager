@@ -12,7 +12,8 @@ $(document).ready(function () {
                     "previous": "Poprzednia",
                     "next": "Następna"
                 }
-            }
+            },
+            "dom": '<"top"f>rt<"empty-block"><"bottom"p><"text-center"l>'
         });
     });
 });

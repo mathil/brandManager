@@ -12,7 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  *
  * @Route("pushsubscription")
  */
-class PushSubscriptionController extends Controller {
+class PushSubscriptionController extends Controller
+{
 
     /**
      * Lists all pushSubscription entities.
@@ -20,27 +21,30 @@ class PushSubscriptionController extends Controller {
      * @Route("/list", name="bm_pushsubscription_index")
      * @Method("GET")
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $pushSubscriptions = $em->getRepository('AppBundle:PushSubscription')->findAll();
 
-        return $this->render('pushsubscription/index.html.twig', array(
-                    'pushSubscriptions' => $pushSubscriptions,
-        ));
+        return $this->render('pushsubscription/index.html.twig', [
+            'pushSubscriptions' => $pushSubscriptions,
+        ]);
     }
 
     /**
      * Finds and displays a pushSubscription entity.
-     *
      * @Route("/{id}/show", name="bm_pushsubscription_show")
      * @Method("GET")
+     * @param PushSubscription $pushSubscription
+     * @return string
      */
-    public function showAction(PushSubscription $pushSubscription) {
+    public function showAction(PushSubscription $pushSubscription)
+    {
 
-        return $this->render('pushsubscription/show.html.twig', array(
-                    'pushSubscription' => $pushSubscription,
-        ));
+        return $this->render('pushsubscription/show.html.twig', [
+            'pushSubscription' => $pushSubscription
+        ]);
     }
 
 }
