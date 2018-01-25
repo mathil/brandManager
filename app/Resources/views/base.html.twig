@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/skeleton.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('public/css/main.css') }}" />
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
- 
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -28,9 +28,12 @@
             {% block content %}{% endblock %}
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
         <script src="{{ asset('public/js/main.js') }}"></script>
         <script src="{{ asset('public/js/datatables.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

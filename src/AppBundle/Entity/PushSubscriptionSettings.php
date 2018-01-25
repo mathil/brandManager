@@ -37,11 +37,9 @@ class PushSubscriptionSettings {
     private $publicKey;
 
     /**
-     * @ORM\Column(type="string", nullable=true, length=255)
-     *
-     * @Assert\File(mimeTypes={ "application/jpeg", "application/png" })
+     * @ORM\OneToMany(targetEntity="PushSubscriptionImage", mappedBy="client")
      */
-    private $pushImage;
+    private $pushImages;
 
     /**
      * @ORM\OneToOne(targetEntity="Client", mappedBy="pushSubscriptionSettings")

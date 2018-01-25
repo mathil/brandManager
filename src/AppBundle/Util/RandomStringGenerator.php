@@ -2,13 +2,18 @@
 
 namespace AppBundle\Util;
 
-class RandomStringGenerator {
+class RandomStringGenerator
+{
 
-    public static function generateString($length) {
-        $chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789!@#$%^&*';
+    public static function generateString(int $length, bool $onlyAlphanumeric = false): string
+    {
+        $chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+        if (true === $onlyAlphanumeric) {
+            $chars .= '!@#$%^&*';
+        }
         $result = "";
         for ($i = 0; $i <= $length; $i++) {
-            $result .= $chars[rand(0, strlen($chars))];
+            $result .= $chars[rand(0, strlen($chars)-1)];
         }
         return $result;
     }

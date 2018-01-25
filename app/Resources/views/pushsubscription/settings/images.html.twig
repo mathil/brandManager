@@ -1,0 +1,25 @@
+{% extends 'module/push_notification.html.twig' %}
+{% set submodule_name = 'submodule_push_subscription_settings' %}
+
+{% block content %}
+    <h1>{{ 'bm.global.images' | trans }}</h1>
+    <a class="button" href="{{ path('bm_pushsubscription_upload_image') }}">{{ 'bm.global.add' | trans }}</a>
+    <button id="delete-selected-images">Usuń zaznaczone</button>
+    <br>
+    {% for image in images %}
+        <div class="push-subscription-image-container">
+            <img class="push-subscription-image" src="{{ path('bm_pushsubscription_show_image', {path: image.path}) }}">
+            <br>
+            <input id="checkbox_{{ image.id }}" class="image-checkbox" data-image-id="{{ image.id }}" type="checkbox">
+            <label class="inline-block-label" for="checkbox_{{ image.id }}">{{ image.name }}</label>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('public/js/pushSubscriptionImages.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/push_subscription_images.css') }}"/>
+{% endblock %}
