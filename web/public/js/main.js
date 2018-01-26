@@ -17,7 +17,6 @@ Ui.showConfirmDialog = function (message, yesCallback) {
         text: message
     }).appendTo("#content");
     $('#ui-confirm-dialog').dialog({
-        title: 'Potwierdź',
         buttons: {
             'Tak': function () {
                 $(this).dialog('close');
@@ -30,10 +29,10 @@ Ui.showConfirmDialog = function (message, yesCallback) {
     });
 };
 
-Ui.showLoadingDialog = function () {
+Ui.showLoadingDialog = function (message) {
     $('<div/>', {
         id: 'ui-loading-dialog',
-        text: "Przetwarzanie..."
+        text: message
     }).appendTo("#content");
     $('#ui-loading-dialog').dialog({});
     return $("#ui-loading-dialog");
@@ -45,7 +44,6 @@ Ui.showInfoDialog = function (message, callback) {
         text: message
     }).appendTo("#content");
     $('#ui-info-dialog').dialog({
-        title: 'Potwierdź',
         buttons: {
             'Zamknij': function () {
                 $(this).dialog('close');

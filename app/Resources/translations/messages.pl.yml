@@ -30,6 +30,12 @@ bm:
             actions:
                 open_url: Otwórz adres URL
                 close: Zamknij
+    dialog:
+        confirm_delete_multiple: Czy na pewno chcesz usunąć wybrane elementy?
+        delete_success: Usunięto pomyślnie
+        delete_fail: Podczas usuwania wystąpił błąd
+        delete_processing: Usuwanie
+        no_element_selected: Nie zaznaczono żadnego elementu
     global:
         submit: Wyślij
         send: Wyślij

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#delete-selected-images").on('click', function () {
-        Ui.showConfirmDialog('test', function () {
+        Ui.showConfirmDialog(Translator.trans('bm.dialog.confirm_delete_multiple'), function () {
             var toDelete = [];
             $('.image-checkbox').each(function () {
                 if ($(this).is(':checked')) {
@@ -8,22 +8,22 @@ $(document).ready(function () {
                 }
             });
             if (toDelete.length === 0) {
-                Ui.showInfoDialog("Nie zaznaczono żadnego obrazka");
+                Ui.showInfoDialog(Translator.trans('bm.dialog.no_element_selected'));
                 return;
             }
 
-            var loadingDialog = Ui.showLoadingDialog();
+            var loadingDialog = Ui.showLoadingDialog(Translator.trans('bm.dialog.delete_processing'));
             $.ajax({
                 url: Routing.generate('bm_pushsubscription_delete_images'),
                 type: 'DELETE',
                 data: {ids: toDelete},
                 success: function () {
                     loadingDialog.remove();
-                    Ui.showInfoDialog('dziala')
+                    Ui.showInfoDialog(Translator.trans('bm.dialog.delete_success'))
                 },
                 error: function () {
                     loadingDialog.remove();
-                    Ui.showInfoDialog('błąd');
+                    Ui.showInfoDialog(Translator.trans('bm.dialog.delete_fail'));
                 }
             })
         })
