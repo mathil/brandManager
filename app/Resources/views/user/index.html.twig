@@ -1,0 +1,31 @@
+{% extends 'module/user.html.twig' %}
+{% set submodule_name = 'submodule_users_list' %}
+
+{% block content %}
+    <h4>{{ 'bm.user.list' | trans }}</h4>
+
+    <a class="button" href="#">{{ 'bm.global.add' | trans }}</a>
+
+    <table class="table-list datatables">
+        <thead>
+            <tr>
+                <th>{{ 'bm.user.properties.name' | trans }}</th>
+                <th>{{ 'bm.user.properties.surname' | trans }}</th>
+                <th>{{ 'bm.user.properties.email' | trans }}</th>
+                <th>{{ 'bm.global.actions' | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>TO DO</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

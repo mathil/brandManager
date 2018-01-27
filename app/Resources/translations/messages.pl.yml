@@ -30,6 +30,12 @@ bm:
             actions:
                 open_url: Otwórz adres URL
                 close: Zamknij
+    user:
+        list: Użytkownicy
+        properties:
+            name: Imię
+            surname: Nazwisko
+            email: E-mail
     dialog:
         confirm_delete_multiple: Czy na pewno chcesz usunąć wybrane elementy?
         delete_success: Usunięto pomyślnie
@@ -48,3 +54,5 @@ bm:
         add: Dodaj
         file: Plik
         name: Nazwa
+        actions: Akcje
+        back: Powrót
