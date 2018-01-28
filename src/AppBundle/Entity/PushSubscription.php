@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="push_subscription")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PushSubscriptionRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PushSubscription extends BaseEntity {
 

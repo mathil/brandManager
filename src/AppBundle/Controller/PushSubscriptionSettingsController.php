@@ -58,6 +58,10 @@ class PushSubscriptionSettingsController extends Controller
      */
     public function newImageAction(Request $request)
     {
+        if (false === $this->isImageUploadPossible()) {
+            return $this->render('pushsubscription\settings\cannot_upload_image.html.twig');
+        }
+
         $image = new PushSubscriptionImage();
         $form = $this->createForm('AppBundle\Form\PushSubscriptionImageType', $image);
         $form->handleRequest($request);
@@ -110,6 +114,12 @@ class PushSubscriptionSettingsController extends Controller
         $em->flush();
 
         return (new JsonResponse());
+    }
+
+    private function isImageUploadPossible()
+    {
+        $count = $this->getDoctrine()->getManager()->getRepository('AppBundle:PushSubscriptionImage')->getCount();
+        return 5 > $count;
     }
 
 }

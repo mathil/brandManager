@@ -26,6 +26,7 @@ bm:
             action: Akcja
             received_success_count: Powodzenie
             received_fail_count: Niepowodzenie
+            image: Obrazek
             sent_date: Data wysłania
             actions:
                 open_url: Otwórz adres URL

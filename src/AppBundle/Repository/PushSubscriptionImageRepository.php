@@ -2,12 +2,16 @@
 
 namespace AppBundle\Repository;
 
-use Exception;
+
 
 class PushSubscriptionImageRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findByIds(array $ids)
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function findByIds(array $ids): array
     {
         return $this->createQueryBuilder('i')
             ->select('i')
@@ -17,12 +21,26 @@ class PushSubscriptionImageRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function getIdsAndNamesArray()
+    /**
+     * @return array
+     */
+    public function getIdsAndNamesArray(): array
     {
         return $this->createQueryBuilder('i')
             ->select('i.id, i.name')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->createQueryBuilder('i')
+            ->select('COUNT(i.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 }

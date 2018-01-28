@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\ImageEntityType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -11,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PushMessageType extends AbstractType {
 
@@ -34,11 +36,14 @@ class PushMessageType extends AbstractType {
                     'maxlength' => 255
                 ]
             ])
-            ->add('image', ChoiceType::class, [
+            ->add('image', ImageEntityType::class, [
                 'label' => 'bm.push_message.properties.image',
-                'choices' => [
-
-                ]
+                'choice_label' => 'name',
+                'class' => 'AppBundle\Entity\PushSubscriptionImage',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC');
+                }
             ])
             ->add('openUrl', CheckboxType::class, [
                 'label' => 'bm.push_message.properties.open_url_after_click',

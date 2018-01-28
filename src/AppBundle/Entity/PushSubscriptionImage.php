@@ -34,7 +34,7 @@ class PushSubscriptionImage
      *
      * @ORM\Column(name="path", type="string", length=255)
      * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" }, groups={"create"})
      */
     private $path;
 

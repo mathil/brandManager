@@ -36,6 +36,21 @@ abstract class BaseEntity {
         $this->mtime = $mtime;
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist() {
+        $this->ctime = new \DateTime();
+        $this->mtime = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate() {
+        $this->mtime = new \DateTime();
+    }
+
 
 
 

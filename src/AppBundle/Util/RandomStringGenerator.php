@@ -12,8 +12,9 @@ class RandomStringGenerator
             $chars .= '!@#$%^&*';
         }
         $result = "";
+        $randMax = strlen($chars) -1;
         for ($i = 0; $i < $length; $i++) {
-            $result .= $chars[rand(0, strlen($chars)-1)];
+            $result .= $chars[rand(0, $randMax)];
         }
         return $result;
     }

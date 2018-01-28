@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\PushSubscriptionImage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\PushMessageHistory;
 use Symfony\Component\Form\FormInterface;
 use AppBundle\Enum\PushMessageActionEnum;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("pushmessage")
@@ -66,9 +68,16 @@ class PushMessageController extends Controller
      */
     private function prepareFormAndSendMessage(FormInterface $form)
     {
+        $image = $form->get('image')->getData();
+        if($image instanceof PushSubscriptionImage) {
+            $imageUrl = $this->generateUrl('bm_pushsubscription_show_image', ['path' => $image->getPath()], UrlGeneratorInterface::ABSOLUTE_URL);
+        } else {
+            $imageUrl = null;
+        }
         $data = [
             'subject' => $form->get('subject')->getData(),
             'message' => $form->get('message')->getData(),
+            'imageUrl' => $imageUrl,
             'openUrl' => $form->get('openUrl')->getData(),
             'url' => $form->get('urlAddress')->getData()
         ];

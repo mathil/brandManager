@@ -1,0 +1,14 @@
+{% block image_entity_widget %}
+    {% spaceless %}
+        <label>
+            <input type="radio" value="" name="{{ form.vars.full_name }}" checked="checked">
+            Brak
+        </label>
+        {% for choice in form.vars.choices %}
+            <label>
+                <input type="radio" value="{{ choice.data.id }}" name="{{ form.vars.full_name }}">
+                <img style="width: 100px;" src="{{ path('bm_pushsubscription_show_image', {path: choice.data.path}) }}">
+            </label>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock %}
