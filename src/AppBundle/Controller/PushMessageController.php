@@ -31,7 +31,7 @@ class PushMessageController extends Controller
         $form = $this->createForm('AppBundle\Form\PushMessageType', []);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->prepareFormAndSendMessage($form);
+            $this->get('AppBundle\Service\PushNotificationFormSender')->prepareFormAndSend($form);
         }
 
         return $this->render('pushmessage\new.html.twig', [
@@ -61,50 +61,6 @@ class PushMessageController extends Controller
         }
         return true;
 
-    }
-
-    /**
-     * @param FormInterface $form
-     */
-    private function prepareFormAndSendMessage(FormInterface $form)
-    {
-        $image = $form->get('image')->getData();
-        if($image instanceof PushSubscriptionImage) {
-            $imageUrl = $this->generateUrl('bm_pushsubscription_show_image', ['path' => $image->getPath()], UrlGeneratorInterface::ABSOLUTE_URL);
-        } else {
-            $imageUrl = null;
-        }
-        $data = [
-            'subject' => $form->get('subject')->getData(),
-            'message' => $form->get('message')->getData(),
-            'imageUrl' => $imageUrl,
-            'openUrl' => $form->get('openUrl')->getData(),
-            'url' => $form->get('urlAddress')->getData()
-        ];
-        $privateKey = $this->getUser()->getClient()->getPushSubscriptionSettings()->getPrivateKey();
-        $publicKey = $this->getUser()->getClient()->getPushSubscriptionSettings()->getPublicKey();
-        $result = $this->get('AppBundle\Service\PushNotificationSender')->send($privateKey, $publicKey, $data, $this->getUser()->getClient()->getPushSubscriptions());
-        $this->saveMessageToHistory($data, $result);
-    }
-
-    /**
-     * @param array $data
-     * @param array $result
-     */
-    private function saveMessageToHistory(array $data, array $result)
-    {
-        $history = (new PushMessageHistory())
-            ->setMessage($data['message'])
-            ->setSubject($data['subject'])
-            ->setAction($data['openUrl'] ? PushMessageActionEnum::OPEN_URL : PushMessageActionEnum::CLOSE)
-            ->setUrl($data['url'])
-            ->setSentDate(new \DateTime())
-            ->setSender($this->getUser())
-            ->setReceivedFailCount($result['fail'])
-            ->setReceivedSuccessCount($result['success']);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($history);
-        $em->flush();
     }
 
 }

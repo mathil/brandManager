@@ -18,6 +18,7 @@ bm:
     push_message:
         send: Wyślij powiadomienie PUSH
         history: Historia powiadomień
+        cannot_upload_image: Aby dodać nowy obrazek usuń któryś z obecnych.
         properties:
             subject: Temat
             message: Treść

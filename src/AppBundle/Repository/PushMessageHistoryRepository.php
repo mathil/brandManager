@@ -2,6 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\PushMessageHistory;
+use AppBundle\Entity\User;
+use AppBundle\Enum\PushMessageActionEnum;
+
 /**
  * PushMessageHistoryRepository
  *
@@ -10,4 +14,27 @@ namespace AppBundle\Repository;
  */
 class PushMessageHistoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * @param array $data
+     * @param array $result
+     * @param User $user
+     */
+    public function save(array $data, array $result, User $user)
+    {
+        $history = (new PushMessageHistory())
+            ->setMessage($data['message'])
+            ->setSubject($data['subject'])
+            ->setAction($data['openUrl'] ? PushMessageActionEnum::OPEN_URL : PushMessageActionEnum::CLOSE)
+            ->setUrl($data['url'])
+            ->setSentDate(new \DateTime())
+            ->setSender($user)
+            ->setReceivedFailCount($result['fail'])
+            ->setReceivedSuccessCount($result['success']);
+        $this->getEntityManager()->persist($history);
+        $this->getEntityManager()->flush();
+
+    }
+
+
 }
