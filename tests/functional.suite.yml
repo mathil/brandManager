@@ -4,4 +4,5 @@ modules:
         - Symfony
         - Doctrine2:
             depends: Symfony
+            cleanup: true
         - \Helper\Functional
