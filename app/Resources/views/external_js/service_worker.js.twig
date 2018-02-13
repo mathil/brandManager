@@ -1,0 +1,33 @@
+self.addEventListener('push', function (event) {
+
+    var data = {};
+    if (event.data) {
+        data = event.data.json();
+    }
+    console.log(data);
+
+    const title = data.subject;
+    var options = {
+        body: data.message,
+        data: {
+            url: data.url,
+            openUrl: data.openUrl
+        }
+    };
+    if(data.imageUrl) {
+        options.icon = data.imageUrl;
+    }
+    console.log(options);
+    console.log(options.icon);
+
+    event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function (event) {
+    console.log('click');
+    console.log(event.notification.data);
+    event.notification.close();
+    if (event.notification.data && event.notification.data.openUrl && event.notification.data.url) {
+        event.waitUntil(clients.openWindow(event.notification.data.url));
+    }
+});

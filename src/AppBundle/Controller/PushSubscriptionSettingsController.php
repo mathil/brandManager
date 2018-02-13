@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\PushSubscriptionImage;
+use AppBundle\Util\FileSaver;
 use AppBundle\Util\RandomStringGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * Class PushSubscriptionSettingsController
@@ -120,6 +122,48 @@ class PushSubscriptionSettingsController extends Controller
     {
         $count = $this->getDoctrine()->getManager()->getRepository('AppBundle:PushSubscriptionImage')->getCount();
         return 5 > $count;
+    }
+
+    /**
+     * @Route("/plugins", name="bm_pushsubscription_plugins")
+     * @Method({"GET"})
+     */
+    public function pluginsAction()
+    {
+        return $this->render(':pushsubscription/settings:plugins.html.twig');
+    }
+
+    /**
+     * @Route("/pushSubscriptionJsTemplate", name="bm_pushsubscription_generate_js_template")
+     * @Method({"GET"})
+     */
+    public function generatePushSubscriptionTemplateAction()
+    {
+        $fileName = RandomStringGenerator::generateString(10, RandomStringGenerator::ONLY_ALPHANUMERIC) . '.js';
+        return $this->generateJsBinaryResponse('push_subscription.js.twig', $fileName);
+    }
+
+    /**
+     * @Route("/pushSubscriptionServiceWorker", name="bm_pushsubscription_generate_service_worker")
+     * @Method({"GET"})
+     */
+    public function generateServiceWorkerTemplateAction()
+    {
+        return $this->generateJsBinaryResponse('service_worker.js.twig', 'sw.js');
+    }
+
+    private function generateJsBinaryResponse($templateName, $fileName)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $publicKey = $em->getRepository('AppBundle:PushSubscriptionSettings')->getPublicKeyForUser($this->getUser()->getId());
+        $content = $this->renderView('external_js/' . $templateName, ['clientPublicKey' => $publicKey]);
+
+        $destination = $this->getParameter('temp_files_dir');
+        $path = FileSaver::createFileAndReturnPath($content, $fileName, $destination);
+
+        $response = new BinaryFileResponse($path);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName);
+        return $response;
     }
 
 }

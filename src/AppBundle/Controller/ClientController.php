@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Client controller.
@@ -17,23 +18,19 @@ class ClientController extends Controller
     /**
      * Lists all client entities.
      *
-     * @Route("/", name="client_index")
+     * @Route("/list", name="client_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $clients = $em->getRepository('AppBundle:Client')->findAll();
-
         return $this->render('client/index.html.twig', array(
-            'clients' => $clients,
+            'clients' => $em->getRepository('AppBundle:Client')->findAll()
         ));
     }
 
     /**
-     * Creates a new client entity.
-     *
      * @Route("/new", name="client_new")
      * @Method({"GET", "POST"})
      */
@@ -48,7 +45,7 @@ class ClientController extends Controller
             $em->persist($client);
             $em->flush();
 
-            return $this->redirectToRoute('client_show', array('id' => $client->getId()));
+            return $this->redirectToRoute('client_index');
         }
 
         return $this->render('client/new.html.twig', array(
@@ -123,14 +120,13 @@ class ClientController extends Controller
      *
      * @param Client $client The client entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Client $client)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('client_delete', array('id' => $client->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

@@ -5,6 +5,8 @@ namespace AppBundle\Util;
 class RandomStringGenerator
 {
 
+    const ONLY_ALPHANUMERIC = true;
+
     public static function generateString(int $length, bool $onlyAlphanumeric = false): string
     {
         $chars = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789';
