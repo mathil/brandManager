@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 /**
  * Class PushSubscriptionSettingsController
  * @package AppBundle\Controller
- * @Route("pushsubscription/settings")
+ * @Route("pushnotifications/settings")
  */
 class PushSubscriptionSettingsController extends Controller
 {

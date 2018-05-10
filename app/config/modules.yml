@@ -1,0 +1,32 @@
+desktop:
+    route: bm_desktop_index
+    label: bm.modules.desktop
+    name: module_desktop
+push_subscriptions:
+    label: bm.modules.push_subscriptions
+    name: module_push_notification
+    submodules:
+        settings:
+            route: bm_pushsubscription_settings
+            label: bm.global.settings
+            name: submodule_push_subscription_settings
+        sender:
+            route: bm_pushmessage_send
+            label: bm.push_message.send
+            name: submodule_push_message_send
+        schedule:
+            route: bm_pushnotificationschedule_index
+            label: bm.push_notification_schedule.index
+            name: submodule_push_notification_schedule_index
+        history:
+            route: bm_pushmessage_history
+            label: bm.push_message.history
+            name: submodule_push_message_history
+users:
+    label: bm.modules.users
+    name: module_users
+    submodules:
+        users:
+            route: bm_user_list
+            label: bm.global.list
+            name: submodule_users_list

@@ -20,3 +20,8 @@ parameters:
 
     # Push images upload directory
     push_subscription_images_directory: ~
+
+    # Redis
+    redis:
+        host: null
+        port: null

@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\PushMessageHistory;
 use AppBundle\Entity\User;
 use AppBundle\Enum\PushMessageActionEnum;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * PushMessageHistoryRepository
@@ -14,6 +15,7 @@ use AppBundle\Enum\PushMessageActionEnum;
  */
 class PushMessageHistoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
 
     /**
      * @param array $data
@@ -34,6 +36,50 @@ class PushMessageHistoryRepository extends \Doctrine\ORM\EntityRepository
         $this->getEntityManager()->persist($history);
         $this->getEntityManager()->flush();
 
+    }
+
+    /**
+     * @param array $criteria
+     * @return mixed
+     */
+    public function getData(array $criteria)
+    {
+        $columns = ['h.sentDate', 'h.subject', 'h.message', 'h.action', 'h.receivedSuccessCount', 'h.receivedFailCount'];
+        $queryBuilder = $this->createQueryBuilder('h')
+            ->select($columns)
+            ->setMaxResults($criteria['length'])
+            ->setFirstResult($criteria['start'])
+            ->orderBy($columns[$criteria['order'][0]['column']], $criteria['order'][0]['dir']);
+        $queryBuilder = $this->appendSearchCriteria($queryBuilder, $criteria['search']);
+        $result = $queryBuilder->getQuery()->getResult();
+        $data = ['data' => []];
+        foreach ($result as $res) {
+            $data['data'][] = [
+                $res['sentDate']->format('d.m.Y H:i:s'),
+                $res['subject'],
+                $res['message'],
+                $res['action'],
+                $res['receivedSuccessCount'],
+                $res['receivedFailCount'],
+            ];
+        }
+        return $data;
+    }
+
+    private function appendSearchCriteria(QueryBuilder $queryBuilder, $searchCriteria)
+    {
+        if ($searchCriteria['value'] === '') {
+            return $queryBuilder;
+        }
+
+        $queryBuilder->where("h.sentDate like '%:param%'");
+        $queryBuilder->orWhere("h.subject like '%:param%'");
+        $queryBuilder->orWhere("h.message like '%:param%'");
+        $queryBuilder->orWhere("h.action like '%:param%'");
+//        $queryBuilder->orWhere("h.receivedSuccessCount = :param");
+//        $queryBuilder->orWhere("h.receivedFailCount = :param");
+        $queryBuilder->setParameter('param', $searchCriteria['value']);
+        return $queryBuilder;
     }
 
 

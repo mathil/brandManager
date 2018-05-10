@@ -1,0 +1,35 @@
+<div class="row search-box-container">
+    {{ form_start(searchBoxForm) }}
+
+    {{ form_label(searchBoxForm.dateFrom) }}
+    {{ form_widget(searchBoxForm.dateFrom) }}
+    {{ form_label(searchBoxForm.dateTo) }}
+    {{ form_widget(searchBoxForm.dateTo) }}
+    {{ form_label(searchBoxForm.subject) }}
+    {{ form_widget(searchBoxForm.subject) }}
+    {{ form_label(searchBoxForm.message) }}
+    {{ form_widget(searchBoxForm.message) }}
+    <div>
+        <button type="button" id="clear-search-form">{{ 'bm.global.search_clear' | trans }}</button>
+        {{ form_widget(searchBoxForm.submit) }}
+    </div>
+    {{ form_end(searchBoxForm) }}
+</div>
+
+{% block stylesheets %}
+    <style>
+        .search-box-container {
+            border: 1px solid black;
+            float: right;
+        }
+
+        .search-box-form label {
+            display: inline-block;
+        }
+
+        .search-box-submit {
+            float: right;
+        }
+    </style>
+{% endblock stylesheets %}
+

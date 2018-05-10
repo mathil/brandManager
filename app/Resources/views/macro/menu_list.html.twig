@@ -1,0 +1,7 @@
+{% macro menu_list(menu_items) %}
+    <ul>
+        {% for item in menu_items %}
+            <li><a href="{{ item.route }}">{{ item.label | trans }}</a></li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

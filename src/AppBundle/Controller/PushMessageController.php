@@ -2,18 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\PushSubscriptionImage;
+use AppBundle\Form\SearchBox;
+use AppBundle\Form\SearchBoxType;
+use function GuzzleHttp\Psr7\parse_request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\PushMessageHistory;
-use Symfony\Component\Form\FormInterface;
-use AppBundle\Enum\PushMessageActionEnum;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @Route("pushmessage")
+ * @Route("pushnotifications")
  */
 class PushMessageController extends Controller
 {
@@ -34,9 +33,12 @@ class PushMessageController extends Controller
             $this->get('AppBundle\Service\PushNotificationFormSender')->prepareFormAndSend($form);
         }
 
-        return $this->render('pushmessage\new.html.twig', [
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'pushmessage\new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -45,22 +47,52 @@ class PushMessageController extends Controller
      */
     public function showHistoryAction()
     {
-        return $this->render('pushmessage\history.html.twig', [
-            'history' => $this->getDoctrine()->getManager()->getRepository('AppBundle:PushMessageHistory')->findAll()
-        ]);
+        $searchBoxForm = $this->createForm(SearchBoxType::class);
+
+        return $this->render(
+            'pushmessage\history.html.twig',
+            [
+                'searchBoxForm' => $searchBoxForm->createView(),
+            ]
+        );
     }
 
-    protected function formIsValid($form)
+    /**
+     * @Route("/history/ajax", name="bm_pushmessage_history_ajax")
+     * @Method({"GET"})
+     */
+    public function historyAjaxAction(Request $request)
     {
-        if (!$form->isValid()) {
+        $params = $this->createParams($request);
+        $history = $this->get('AppBundle\Finder\PushMessageHistoryFinder')->getData($params);
+
+        return new JsonResponse($history);
+    }
+
+    protected function isFormValid($form)
+    {
+        if (false === $form->isValid()) {
             return false;
         }
 
         if ($form->get('openUrl')->getData()) {
             return filter_var($form->get('urlAddress'), FILTER_VALIDATE_URL);
         }
+
         return true;
 
+    }
+
+    private function createParams(Request $request)
+    {
+        return [
+            'draw' => $request->get('draw'),
+            'columns' => $request->get('columns'),
+            'order' => $request->get('order'),
+            'start' => $request->get('start'),
+            'length' => $request->get('length'),
+            'search' => $request->get('search'),
+        ];
     }
 
 }

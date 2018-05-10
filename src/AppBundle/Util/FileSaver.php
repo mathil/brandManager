@@ -2,6 +2,8 @@
 
 namespace AppBundle\Util;
 
+use Exception;
+
 /**
  * @author mathil <github.com/mathil>
  */
@@ -20,7 +22,7 @@ class FileSaver
         $destination = $baseDir . $name;
         try {
             file_put_contents($destination, $content);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
         return $destination;

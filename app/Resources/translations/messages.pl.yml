@@ -32,6 +32,8 @@ bm:
             actions:
                 open_url: Otwórz adres URL
                 close: Zamknij
+    push_notification_schedule:
+        index: Harmonogramy powiadomień Push
     user:
         list: Użytkownicy
         properties:
@@ -44,8 +46,18 @@ bm:
         delete_fail: Podczas usuwania wystąpił błąd
         delete_processing: Usuwanie
         no_element_selected: Nie zaznaczono żadnego elementu
+    datatables:
+            length_menu: Pokazuj _MENU_ pozycji na stronie
+            zero_records: Niczego nie znaleziono
+            info: Strona _PAGE_ z _PAGES_
+            info_empty: Brak danych
+            info_filtered: (znalezione spośród _MAX_ wszystkich pozycji)
+            paginate:
+                previous: Poprzednia
+                next: Następna
+            processing: Wyszukiwanie...
     global:
-        submit: Wyślij
+        submit: Prześlij
         send: Wyślij
         create: Stwórz
         save: Zapisz
@@ -59,3 +71,11 @@ bm:
         actions: Akcje
         back: Powrót
         plugins: Wtyczki
+        from: Od
+        to: Do
+        hour: Godzina
+        minute: Minuta
+        date_from: Data od
+        date_to: Data do
+        search: Szukaj
+        search_clear: Wyczyść wyszukiwanie

@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * Pushsubscription controller.
  *
- * @Route("pushsubscription")
+ * @Route("pushnotifications")
  */
 class PushSubscriptionController extends Controller
 {
@@ -18,7 +18,7 @@ class PushSubscriptionController extends Controller
     /**
      * Lists all pushSubscription entities.
      *
-     * @Route("/list", name="bm_pushsubscription_index")
+     * @Route("/subscriptions", name="bm_pushsubscription_index")
      * @Method("GET")
      */
     public function indexAction()

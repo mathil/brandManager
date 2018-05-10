@@ -1,3 +1,4 @@
 fos_js_routing:
     routes_to_expose:
         - bm_pushsubscription_delete_images
+        - bm_pushmessage_history_ajax

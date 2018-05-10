@@ -1,32 +1,29 @@
 {% extends 'module/push_notification.html.twig' %}
 {% set submodule_name = 'submodule_push_message_history' %}
 
-{% block content %}
-    <h4>{{ 'bm.push_message.history' | trans }}</h4>
 
-    <table class="datatables">
+{% block content %}
+    {% include 'pushmessage/history_search_box.html.twig' %}
+
+
+
+    <h4>{{ 'bm.push_message.history' | trans }}</h4>
+    <table id="test" class="datatables" data-load-ajax="true" data-data-route="{{ path('bm_pushmessage_history_ajax') }}">
         <thead>
-            <tr>
-                <th>{{ 'bm.push_message.properties.sent_date' | trans }}</th>
-                <th>{{ 'bm.push_message.properties.subject' | trans }}</th>
-                <th>{{ 'bm.push_message.properties.message' | trans }}</th>
-                <th>{{ 'bm.push_message.properties.action' | trans }}</th>
-                <th>{{ 'bm.push_message.properties.received_success_count' | trans }}</th>
-                <th>{{ 'bm.push_message.properties.received_fail_count' | trans }}</th>
-            </tr>
+        <tr>
+            <th>{{ 'bm.push_message.properties.sent_date' | trans }}</th>
+            <th>{{ 'bm.push_message.properties.subject' | trans }}</th>
+            <th>{{ 'bm.push_message.properties.message' | trans }}</th>
+            <th>{{ 'bm.push_message.properties.action' | trans }}</th>
+            <th>{{ 'bm.push_message.properties.received_success_count' | trans }}</th>
+            <th>{{ 'bm.push_message.properties.received_fail_count' | trans }}</th>
+        </tr>
         </thead>
-        <tbody>
-        {% for elem in history %}
-            <tr>
-                <td>{{ elem.sentDate | date('Y.m.d H:i:s') }}</td>
-                <td>{{ elem.subject }}</td>
-                <td>{{ elem.message }}</td>
-                <td>{{ ('bm.push_message.properties.actions.' ~ elem.action) | trans }}</td>
-                <td>{{ elem.receivedSuccessCount }}</td>
-                <td>{{ elem.receivedFailCount }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
     </table>
 
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+    </script>
 {% endblock %}

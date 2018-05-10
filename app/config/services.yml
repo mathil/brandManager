@@ -32,7 +32,23 @@ services:
         resource: '../../src/AppBundle/Service'
         public: true
         tags: ['service.service_arguments']
-
     AppBundle\Listener\NewPushSubscriptionListener:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+    AppBundle\Listener\ModulesInjector:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
+        arguments:
+            $session: '@session'
+
+    AppBundle\Service\RedisAdapter:
+        public: true
+        arguments:
+            $host: '%redis.host%'
+            $port: '%redis.port%'
+
+    AppBundle\Finder\PushMessageHistoryFinder:
+        public: true
+        arguments:
+            $connection: '@doctrine.dbal.default_connection'

@@ -1,0 +1,62 @@
+{% extends 'module/push_notification.html.twig' %}
+{% set submodule_name = 'submodule_push_notification_schedule_index' %}
+
+{% block body %}
+    <h1>Pushnotificationschedules list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Hour</th>
+                <th>Minute</th>
+                <th>Datefrom</th>
+                <th>Dateto</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Sentdate</th>
+                <th>Action</th>
+                <th>Url</th>
+                <th>Ctime</th>
+                <th>Mtime</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pushNotificationSchedule in pushNotificationSchedules %}
+            <tr>
+                <td><a href="{{ path('pushnotificationschedule_show', { 'id': pushNotificationSchedule.id }) }}">{{ pushNotificationSchedule.id }}</a></td>
+                <td>{{ pushNotificationSchedule.name }}</td>
+                <td>{{ pushNotificationSchedule.hour }}</td>
+                <td>{{ pushNotificationSchedule.minute }}</td>
+                <td>{% if pushNotificationSchedule.dateFrom %}{{ pushNotificationSchedule.dateFrom|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if pushNotificationSchedule.dateTo %}{{ pushNotificationSchedule.dateTo|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ pushNotificationSchedule.subject }}</td>
+                <td>{{ pushNotificationSchedule.message }}</td>
+                <td>{% if pushNotificationSchedule.sentDate %}{{ pushNotificationSchedule.sentDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ pushNotificationSchedule.action }}</td>
+                <td>{{ pushNotificationSchedule.url }}</td>
+                <td>{% if pushNotificationSchedule.ctime %}{{ pushNotificationSchedule.ctime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if pushNotificationSchedule.mtime %}{{ pushNotificationSchedule.mtime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pushnotificationschedule_show', { 'id': pushNotificationSchedule.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pushnotificationschedule_edit', { 'id': pushNotificationSchedule.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pushnotificationschedule_new') }}">Create a new pushNotificationSchedule</a>
+        </li>
+    </ul>
+{% endblock %}

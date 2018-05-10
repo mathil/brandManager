@@ -1,54 +1,17 @@
-{% set modules = [
-    {
-        'route': 'bm_desktop_index',
-        'label': 'bm.modules.desktop',
-        'name': 'module_desktop'
-    },
-    {
-        'label': 'bm.modules.push_subscriptions',
-        'name': 'module_push_notification',
-        'submodules': [
-            {
-                'route': 'bm_pushsubscription_settings',
-                'label': 'bm.global.settings',
-                'name': 'submodule_push_subscription_settings'
-            },
-            {
-                'route': 'bm_pushmessage_send',
-                'label': 'bm.push_message.send',
-                'name': 'submodule_push_message_send'
-            },
-            {
-                'route': 'bm_pushmessage_history',
-                'label': 'bm.push_message.history',
-                'name': 'submodule_push_message_history'
-            }
-        ]
-    },
-    {
-        'label': 'bm.modules.users',
-        'name': 'module_users',
-        'submodules': [
-            {
-                'route': 'bm_user_list',
-                'label': 'bm.global.list',
-                'name': 'submodule_users_list'
-            }
-        ]
-    }
-] %}
-
 <div id="modules" class="two">
     <ul>
-    {% for module in modules  %}
-        <li id="{{ module.name }}" class="module" {% if module.route is defined %}onclick="location.href = '{{ path(module.route) }}'" {% endif %}>{{ module.label | trans }}</li>
-        {% if module.submodules is defined %}
-            <div id="{{ 'submodules-' ~ module.name }}" class="submodules-container {% if module_name is defined and module_name == module.name %}current-module{% endif %}">
-                {% for submodule in module.submodules  %}
-                    <li class="submodule {% if submodule_name is defined and submodule_name == submodule.name %}current-submodule{% endif %}" onclick="location.href = '{{ path(submodule.route) }}'">{{ submodule.label | trans }}</li>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endfor %}
+        {% for module in app.session.get('modules') %}
+            <li id="{{ module.name }}" class="module"
+                {% if module.route is defined %}onclick="location.href = '{{ path(module.route) }}'" {% endif %}>{{ module.label | trans }}</li>
+            {% if module.submodules is defined %}
+                <div id="{{ 'submodules-' ~ module.name }}"
+                     class="submodules-container {% if module_name is defined and module_name == module.name %}current-module{% endif %}">
+                    {% for submodule in module.submodules %}
+                        <li class="submodule {% if submodule_name is defined and submodule_name == submodule.name %}current-submodule{% endif %}"
+                            onclick="location.href = '{{ path(submodule.route) }}'">{{ submodule.label | trans }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
     </ul>
 </div>

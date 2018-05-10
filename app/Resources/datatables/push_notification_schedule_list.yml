@@ -1,0 +1,5 @@
+datatables:
+    menu:
+        edit:
+            label: Edytuj
+            route: bm_pushnotificationschedule_edit
