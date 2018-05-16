@@ -33,7 +33,13 @@ bm:
                 open_url: Otwórz adres URL
                 close: Zamknij
     push_notification_schedule:
-        index: Harmonogramy powiadomień Push
+        list: Harmonogramy powiadomień Push
+        new: Nowy harmonogram
+        properties:
+            name: Nazwa
+            date_from: Aktywny od
+            date_to: Aktywny do
+
     user:
         list: Użytkownicy
         properties:

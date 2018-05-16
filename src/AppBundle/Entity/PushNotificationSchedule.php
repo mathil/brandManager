@@ -3,7 +3,9 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\PushMessage;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * PushNotificationSchedule
@@ -44,14 +46,14 @@ class PushNotificationSchedule extends PushMessage
     private $minute;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="dateFrom", type="datetime", nullable=true)
      */
     private $dateFrom;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="dateTo", type="datetime", nullable=true)
      */
@@ -143,13 +145,17 @@ class PushNotificationSchedule extends PushMessage
     /**
      * Set dateFrom.
      *
-     * @param \DateTime $dateFrom
+     * @param DateTime|string $dateFrom
      *
      * @return PushNotificationSchedule
      */
     public function setDateFrom($dateFrom)
     {
-        $this->dateFrom = $dateFrom;
+        if (is_string($dateFrom)) {
+            $this->dateFrom = new DateTime($dateFrom . ' 00:00:00');
+        } else {
+            $this->dateFrom = $dateFrom;
+        }
 
         return $this;
     }
@@ -157,7 +163,7 @@ class PushNotificationSchedule extends PushMessage
     /**
      * Get dateFrom.
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateFrom()
     {
@@ -167,21 +173,25 @@ class PushNotificationSchedule extends PushMessage
     /**
      * Set dateTo.
      *
-     * @param \DateTime $dateTo
+     * @param DateTime $dateTo
      *
      * @return PushNotificationSchedule
      */
     public function setDateTo($dateTo)
     {
-        $this->dateTo = $dateTo;
-
+        if (is_string($dateTo)) {
+            $this->dateTo = new DateTime($dateTo . ' 00:00:00');
+        } else {
+            $this->dateTo = $dateTo;
+        }
+        
         return $this;
     }
 
     /**
      * Get dateTo.
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateTo()
     {

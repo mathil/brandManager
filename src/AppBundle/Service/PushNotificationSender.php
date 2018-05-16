@@ -2,10 +2,13 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\DTO\PushMessageDTO;
 use Doctrine\Common\Collections\Collection;
 use Minishlink\WebPush\WebPush;
 
-
+/**
+ * @author mathil <github.com/mathil>
+ */
 class PushNotificationSender
 {
 
@@ -13,33 +16,41 @@ class PushNotificationSender
     {
     }
 
-    public function send(string $privateKey, string $publicKey, array $dataToSend, Collection $pushSubscriptions): array
+    /**
+     * @param PushMessageDTO $pushMessageDTO
+     * @return array
+     */
+    public function send(PushMessageDTO $pushMessageDTO): array
     {
-        $dataToSendAsJSON = json_encode($dataToSend);
-        $webPush = new WebPush([
-            'VAPID' => [
-                'subject' => 'mailto:panhilson@gmail.com',
-                'publicKey' => $publicKey,
-                'privateKey' => $privateKey,
+        $dataToSendAsJSON = json_encode($pushMessageDTO->getDataToSend());
+        $webPush = new WebPush(
+            [
+                'VAPID' => [
+                    'subject' => 'mailto:panhilson@gmail.com',
+                    'publicKey' => $pushMessageDTO->getPublicKey(),
+                    'privateKey' => $pushMessageDTO->getPrivateKey(),
+                ],
             ]
-        ]);
+        );
 
         $results = [
             'success' => 0,
-            'fail' => 0
+            'fail' => 0,
         ];
-        foreach ($pushSubscriptions as $sub) {
-            if (true === $webPush->sendNotification($sub->getEndpoint(), $dataToSendAsJSON, $sub->getP256dh(), $sub->getAuth())) {
+        foreach ($pushMessageDTO->getSubscriptions() as $sub) {
+            if (true === $webPush->sendNotification(
+                    $sub->getEndpoint(),
+                    $dataToSendAsJSON,
+                    $sub->getP256dh(),
+                    $sub->getAuth()
+                )) {
                 ++$results['success'];
             } else {
                 ++$results['fail'];
             }
         }
         $webPush->flush();
+
         return $results;
     }
-
-
-
-
 }

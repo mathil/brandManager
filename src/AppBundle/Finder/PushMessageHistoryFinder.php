@@ -28,7 +28,7 @@ class PushMessageHistoryFinder implements FinderInterface
      */
     public function getAlias(): string
     {
-        return 'pmhf';
+        return 'pmh';
     }
 
     /**

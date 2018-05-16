@@ -1,16 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'module/push_notification.html.twig' %}
+{% set submodule_name = 'submodule_push_notification_schedule_list' %}
 
-{% block body %}
-    <h1>Pushnotificationschedule creation</h1>
+
+{% block content %}
+    <h4>{{ 'bm.push_notification_schedule.new' | trans }}</h4>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('pushnotificationschedule_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

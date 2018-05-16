@@ -16,8 +16,8 @@ push_subscriptions:
             name: submodule_push_message_send
         schedule:
             route: bm_pushnotificationschedule_index
-            label: bm.push_notification_schedule.index
-            name: submodule_push_notification_schedule_index
+            label: bm.push_notification_schedule.list
+            name: submodule_push_notification_schedule_list
         history:
             route: bm_pushmessage_history
             label: bm.push_message.history

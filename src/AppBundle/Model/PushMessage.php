@@ -4,6 +4,7 @@ namespace AppBundle\Model;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 
 /**
  * @MappedSuperclass
@@ -24,13 +25,6 @@ abstract class PushMessage extends BaseEntity
      * @ORM\Column(name="message", type="string", length=255)
      */
     protected $message;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="sent_date", type="datetime")
-     */
-    protected $sentDate;
 
     /**
      * @var string
@@ -93,31 +87,6 @@ abstract class PushMessage extends BaseEntity
     public function getMessage()
     {
         return $this->message;
-    }
-
-
-    /**
-     * Set sentDate.
-     *
-     * @param DateTime $sentDate
-     *
-     * @return PushMessageHistory
-     */
-    public function setSentDate($sentDate)
-    {
-        $this->sentDate = $sentDate;
-
-        return $this;
-    }
-
-    /**
-     * Get sentDate.
-     *
-     * @return DateTime
-     */
-    public function getSentDate()
-    {
-        return $this->sentDate;
     }
 
     /**

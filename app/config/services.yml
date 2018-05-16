@@ -32,6 +32,10 @@ services:
         resource: '../../src/AppBundle/Service'
         public: true
         tags: ['service.service_arguments']
+    AppBundle\Factory\:
+        resource: '../../src/AppBundle/Factory'
+        public: true
+        tags: ['service.service_arguments']
     AppBundle\Listener\NewPushSubscriptionListener:
         tags:
             - { name: doctrine.event_listener, event: postPersist }

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\DTO\PushMessageDTO;
 use AppBundle\Entity\PushSubscriptionImage;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
@@ -49,8 +50,12 @@ class PushNotificationFormSender
      * @param PushNotificationSender $sender
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(Router $router, EntityManager $em, PushNotificationSender $sender, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        Router $router,
+        EntityManager $em,
+        PushNotificationSender $sender,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->router = $router;
         $this->em = $em;
         $this->sender = $sender;
@@ -65,22 +70,29 @@ class PushNotificationFormSender
     {
         $image = $form->get('image')->getData();
         if ($image instanceof PushSubscriptionImage) {
-            $imageUrl = $this->router->generate('bm_pushsubscription_show_image', ['path' => $image->getPath()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $imageUrl = $this->router->generate(
+                'bm_pushsubscription_show_image',
+                ['path' => $image->getPath()],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         } else {
             $imageUrl = null;
         }
-        $data = [
-            'subject' => $form->get('subject')->getData(),
-            'message' => $form->get('message')->getData(),
-            'imageUrl' => $imageUrl,
-            'openUrl' => $form->get('openUrl')->getData(),
-            'url' => $form->get('urlAddress')->getData()
-        ];
-        $user  = $this->tokenStorage->getToken()->getUser();
-        $privateKey = $user->getClient()->getPushSubscriptionSettings()->getPrivateKey();
-        $publicKey = $user->getClient()->getPushSubscriptionSettings()->getPublicKey();
-        $result = $this->sender->send($privateKey, $publicKey, $data, $user->getClient()->getPushSubscriptions());
-        $this->em->getRepository('AppBundle:PushMessageHistory')->save($data, $result, $user);
+
+        $user = $this->tokenStorage->getToken()->getUser();
+        $pushMessageDTO = new PushMessageDTO(
+            $user->getClient()->getPushSubscriptionSettings()->getPrivateKey(),
+            $user->getClient()->getPushSubscriptionSettings()->getPublicKey(),
+            $form->get('subject')->getData(),
+            $form->get('message')->getData(),
+            $imageUrl,
+            $form->get('openUrl')->getData(),
+            $form->get('urlAddress')->getData(),
+            $user->getClient()->getPushSubscriptions()
+        );
+
+        $result = $this->sender->send($pushMessageDTO);
+        $this->em->getRepository('AppBundle:PushMessageHistory')->save($pushMessageDTO, $result, $user);
     }
 
 }

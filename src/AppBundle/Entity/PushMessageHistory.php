@@ -43,6 +43,13 @@ class PushMessageHistory extends PushMessage
      */
     private $sender;
 
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="sent_date", type="datetime")
+     */
+    protected $sentDate;
+
 
     /**
      * Get id.
@@ -124,5 +131,29 @@ class PushMessageHistory extends PushMessage
     public function getSender()
     {
         return $this->sender;
+    }
+
+    /**
+     * Set sentDate.
+     *
+     * @param DateTime $sentDate
+     *
+     * @return PushMessageHistory
+     */
+    public function setSentDate($sentDate)
+    {
+        $this->sentDate = $sentDate;
+
+        return $this;
+    }
+
+    /**
+     * Get sentDate.
+     *
+     * @return DateTime
+     */
+    public function getSentDate()
+    {
+        return $this->sentDate;
     }
 }
