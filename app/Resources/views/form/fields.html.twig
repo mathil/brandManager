@@ -12,3 +12,44 @@
         {% endfor %}
     {% endspaceless %}
 {% endblock %}
+
+{% block schedule_widget %}
+    {{ form_label(form.dateFrom) }}
+    {{ form_widget(form.dateFrom) }}
+    {{ form_label(form.dateTo) }}
+    {{ form_widget(form.dateTo) }}
+    {{ form_label(form.lastDayOfMonth, null, {'label_attr': {'class': 'display-inline-label'}}) }}
+    {{ form_widget(form.lastDayOfMonth) }}
+    {{ form_label(form.daysOfMonth) }}
+    <div>
+        {{ form_widget(form.allDaysOfMonth) }}
+        {{ form_label(form.allDaysOfMonth, null, {'label_attr': {'class': 'checkbox-label'}}) }}
+    </div>
+    {{ form_widget(form.daysOfMonth) }}
+    {{ form_label(form.daysOfWeek) }}
+    <div>
+        {{ form_widget(form.allDaysOfWeek) }}
+        {{ form_label(form.allDaysOfWeek, null, {'label_attr': {'class': 'checkbox-label'}}) }}
+    </div>
+    {{ form_widget(form.daysOfWeek) }}
+    {{ form_label(form.hours) }}
+    <div>
+        {{ form_widget(form.allHours) }}
+        {{ form_label(form.allHours, null, {'label_attr': {'class': 'checkbox-label'}}) }}
+    </div>
+    {{ form_widget(form.hours) }}
+    {{ form_label(form.minutes) }}
+    <div>
+        {{ form_widget(form.allMinutes) }}
+        {{ form_label(form.allMinutes, null, {'label_attr': {'class': 'checkbox-label'}}) }}
+    </div>
+    {{ form_widget(form.minutes) }}
+
+    {% block stylesheets %}
+        <style>
+            .select2 {
+                min-width: 500px !important;
+            }
+        </style>
+    {% endblock %}
+{% endblock %}

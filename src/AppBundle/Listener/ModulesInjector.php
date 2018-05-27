@@ -41,7 +41,7 @@ class ModulesInjector
     /**
      * @throws Exception
      */
-    public function onKernelRequest()
+    public function onKernelRequest(): void
     {
         $modules = $this->redisAdapter->get('bm_modules');
         if (null !== $modules) {

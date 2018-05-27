@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mateusz
- * Date: 28.01.18
- * Time: 23:29
- */
 
 namespace AppBundle\Service;
 
-use AppBundle\DTO\PushMessageDTO;
 use AppBundle\Entity\PushSubscriptionImage;
+use AppBundle\Factory\PushMessageDTOFactory;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -44,29 +38,37 @@ class PushNotificationFormSender
     private $tokenStorage;
 
     /**
+     * @var PushMessageDTOFactory
+     */
+    private $pushMessageDTOFactory;
+
+    /**
      * PushNotificationFormSender constructor.
+     *
      * @param Router $router
      * @param EntityManager $em
      * @param PushNotificationSender $sender
      * @param TokenStorageInterface $tokenStorage
+     * @param PushMessageDTOFactory $pushMessageDTOFactory
      */
     public function __construct(
         Router $router,
         EntityManager $em,
         PushNotificationSender $sender,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        PushMessageDTOFactory $pushMessageDTOFactory
     ) {
         $this->router = $router;
         $this->em = $em;
         $this->sender = $sender;
         $this->tokenStorage = $tokenStorage;
-
+        $this->pushMessageDTOFactory = $pushMessageDTOFactory;
     }
 
     /**
      * @param FormInterface $form
      */
-    public function prepareFormAndSend(FormInterface $form)
+    public function prepareFormAndSend(FormInterface $form): void
     {
         $image = $form->get('image')->getData();
         if ($image instanceof PushSubscriptionImage) {
@@ -80,7 +82,7 @@ class PushNotificationFormSender
         }
 
         $user = $this->tokenStorage->getToken()->getUser();
-        $pushMessageDTO = new PushMessageDTO(
+        $pushMessageDTO = $this->pushMessageDTOFactory->createFromParameters(
             $user->getClient()->getPushSubscriptionSettings()->getPrivateKey(),
             $user->getClient()->getPushSubscriptionSettings()->getPublicKey(),
             $form->get('subject')->getData(),

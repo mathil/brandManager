@@ -3,9 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Model\PushMessage;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * PushNotificationSchedule
@@ -32,32 +30,10 @@ class PushNotificationSchedule extends PushMessage
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="hour", type="smallint")
+     * @ORM\OneToOne(targetEntity="Schedule", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
      */
-    private $hour;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="minute", type="smallint")
-     */
-    private $minute;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="dateFrom", type="datetime", nullable=true)
-     */
-    private $dateFrom;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="dateTo", type="datetime", nullable=true)
-     */
-    private $dateTo;
+    private $schedule;
 
 
     /**
@@ -95,106 +71,27 @@ class PushNotificationSchedule extends PushMessage
     }
 
     /**
-     * Set hour.
+     * Set schedule.
      *
-     * @param int $hour
+     * @param string $schedule
      *
      * @return PushNotificationSchedule
      */
-    public function setHour($hour)
+    public function setSchedule($schedule)
     {
-        $this->hour = $hour;
+        $this->schedule = $schedule;
 
         return $this;
     }
 
     /**
-     * Get hour.
+     * Get schedule.
      *
-     * @return int
+     * @return string
      */
-    public function getHour()
+    public function getSchedule()
     {
-        return $this->hour;
+        return $this->schedule;
     }
 
-    /**
-     * Set minute.
-     *
-     * @param int $minute
-     *
-     * @return PushNotificationSchedule
-     */
-    public function setMinute($minute)
-    {
-        $this->minute = $minute;
-
-        return $this;
-    }
-
-    /**
-     * Get minute.
-     *
-     * @return int
-     */
-    public function getMinute()
-    {
-        return $this->minute;
-    }
-
-    /**
-     * Set dateFrom.
-     *
-     * @param DateTime|string $dateFrom
-     *
-     * @return PushNotificationSchedule
-     */
-    public function setDateFrom($dateFrom)
-    {
-        if (is_string($dateFrom)) {
-            $this->dateFrom = new DateTime($dateFrom . ' 00:00:00');
-        } else {
-            $this->dateFrom = $dateFrom;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get dateFrom.
-     *
-     * @return DateTime
-     */
-    public function getDateFrom()
-    {
-        return $this->dateFrom;
-    }
-
-    /**
-     * Set dateTo.
-     *
-     * @param DateTime $dateTo
-     *
-     * @return PushNotificationSchedule
-     */
-    public function setDateTo($dateTo)
-    {
-        if (is_string($dateTo)) {
-            $this->dateTo = new DateTime($dateTo . ' 00:00:00');
-        } else {
-            $this->dateTo = $dateTo;
-        }
-        
-        return $this;
-    }
-
-    /**
-     * Get dateTo.
-     *
-     * @return DateTime
-     */
-    public function getDateTo()
-    {
-        return $this->dateTo;
-    }
 }

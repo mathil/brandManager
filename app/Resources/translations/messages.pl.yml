@@ -35,10 +35,6 @@ bm:
     push_notification_schedule:
         list: Harmonogramy powiadomień Push
         new: Nowy harmonogram
-        properties:
-            name: Nazwa
-            date_from: Aktywny od
-            date_to: Aktywny do
 
     user:
         list: Użytkownicy
@@ -62,6 +58,16 @@ bm:
                 previous: Poprzednia
                 next: Następna
             processing: Wyszukiwanie...
+    schedule:
+        properties:
+            date_from: Obowiazuje od
+            date_to: Obowiazuje do
+            days_of_month: Dni miesiąca
+            days_of_week: Dni tygodnia
+            hours: Godziny
+            minutes: Minuty
+            last_day_of_month: Ostatni dzień miesiąca
+
     global:
         submit: Prześlij
         send: Wyślij
@@ -85,3 +91,12 @@ bm:
         date_to: Data do
         search: Szukaj
         search_clear: Wyczyść wyszukiwanie
+        monday: Poniedziałek
+        tuesday: Wtorek
+        wednesday: Środa
+        thursday: Czwartek
+        friday: Piątek
+        saturday: Sobota
+        sunday: Niedziela
+        schedule: Harmonogram
+        choose_all: Zaznacz wszystkie

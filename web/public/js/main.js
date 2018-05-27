@@ -9,6 +9,7 @@ function initModules() {
 $(document).ready(function () {
     initModules();
     Ui.initDatePicker();
+    Ui.initSelect2();
 });
 
 var Ui = {};
@@ -57,5 +58,9 @@ Ui.showInfoDialog = function (message, callback) {
 };
 
 Ui.initDatePicker = function () {
-    $('.datepicker').datepicker({ dateFormat: 'dd.mm.yy' });
-}
+    $('.datepicker').datepicker({dateFormat: 'dd.mm.yy'});
+};
+
+Ui.initSelect2 = function () {
+    $('.select2').select2();
+};

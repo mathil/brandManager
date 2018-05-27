@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\ScheduleType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,27 +23,6 @@ class PushNotificationScheduleType extends AbstractType
             TextType::class,
             [
                 'label' => 'bm.global.name',
-
-            ]
-        );
-        $builder->add(
-            'dateFrom',
-            TextType::class,
-            [
-                'label' => 'bm.push_notification_schedule.properties.date_from',
-                'attr' => [
-                    'class' => 'datepicker',
-                ],
-            ]
-        );
-        $builder->add(
-            'dateTo',
-            TextType::class,
-            [
-                'label' => 'bm.push_notification_schedule.properties.date_to',
-                'attr' => [
-                    'class' => 'datepicker',
-                ],
 
             ]
         );
@@ -78,20 +59,10 @@ class PushNotificationScheduleType extends AbstractType
             ]
         );
         $builder->add(
-            'hour',
-            ChoiceType::class,
+            'schedule',
+            ScheduleType::class,
             [
-                'label' => 'bm.global.hour',
-                'choices' => range(0,23)
-
-            ]
-        );
-        $builder->add(
-            'minute',
-            ChoiceType::class,
-            [
-                'label' => 'bm.global.minute',
-                'choices' => [0, 15, 30, 45],
+                'label' => 'bm.global.schedule',
 
             ]
         );

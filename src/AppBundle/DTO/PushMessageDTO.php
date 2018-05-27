@@ -53,6 +53,7 @@ class PushMessageDTO
 
     /**
      * PushMessageDTO constructor.
+     *
      * @param string $privateKey
      * @param string $publicKey
      * @param string $subject

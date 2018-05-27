@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use AppBundle\DTO\PushMessageDTO;
-use Doctrine\Common\Collections\Collection;
 use Minishlink\WebPush\WebPush;
 
 /**
@@ -18,6 +17,7 @@ class PushNotificationSender
 
     /**
      * @param PushMessageDTO $pushMessageDTO
+     *
      * @return array
      */
     public function send(PushMessageDTO $pushMessageDTO): array

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\PushNotificationSchedule;
+use AppBundle\Form\PushNotificationScheduleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,18 +44,18 @@ class PushNotificationScheduleController extends Controller
     public function newAction(Request $request)
     {
         $pushNotificationSchedule = new Pushnotificationschedule();
-        $form = $this->createForm('AppBundle\Form\PushNotificationScheduleType', $pushNotificationSchedule);
+        $form = $this->createForm(PushNotificationScheduleType::class, $pushNotificationSchedule);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $schedule = $this->get('AppBundle\Factory\ScheduleFactory')->createFromArray($form->get('schedule')->getData());
+            $pushNotificationSchedule->setSchedule($schedule);
             $em->persist($pushNotificationSchedule);
             $em->flush();
 
-            return $this->redirectToRoute(
-                'pushnotificationschedule_show',
-                array('id' => $pushNotificationSchedule->getId())
-            );
+            return $this->redirectToRoute('bm_pushnotificationschedule_index');
         }
 
         return $this->render(

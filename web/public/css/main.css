@@ -80,3 +80,8 @@ html, body {
 .inline-block-label {
     display: inline-block !important;
 }
+
+.checkbox-label {
+    display: inline-block !important;
+    font-weight: normal !important;
+}
